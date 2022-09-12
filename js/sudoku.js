@@ -107,17 +107,20 @@ function searchForSolution(boards){
     // List[Board] -> Board or false
     // finds a valid solution to the sudoku problem
     if (boards.length < 1){
+    //if all the boards are invalid this has length 0   
         return false
     }
     else {
         // backtracking search for solution
-        var first = boards.shift()
+        var first = boards.shift() // shift is inbuilt method that removes the first element from the array
+        //first element 
         const tryPath = solve(first)
         if (tryPath != false){
+        //doesnt hit a dead end 
             return tryPath
         }
         else{
-            return searchForSolution(boards)
+            return searchForSolution(boards) //reduces input
         }
     }
 }
@@ -152,13 +155,16 @@ function nextBoards(board){
         const y = firstEmpty[0]
         const x = firstEmpty[1]
         for (var i = 1; i <= 9; i++){
+            //filling out all possibilities 
             var newBoard = [...board]
+            //spread operator ... Arrays are objects creates a new board and not have the sam reference.
             var row = [...newBoard[y]]
             row[x] = i
             newBoard[y] = row
             res.push(newBoard)
         }
     }
+    //if undefined then no possibility left
     return res
 }
 
@@ -259,10 +265,12 @@ function boxesGood(board){
                 coordinates[0] += y
                 coordinates[1] += x
                 if (cur.includes(board[coordinates[0]][coordinates[1]])){
+                    //contains duplicates
                     return false
                 }
                 else if (board[coordinates[0]][coordinates[1]] != null){
                     cur.push(board[coordinates[0]][coordinates[1]])
+                    //doesnt contain any duplicates 
                 }
             }
         }
